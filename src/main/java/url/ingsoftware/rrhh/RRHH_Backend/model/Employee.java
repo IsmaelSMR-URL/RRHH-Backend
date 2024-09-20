@@ -1,57 +1,98 @@
 package url.ingsoftware.rrhh.RRHH_Backend.model;
 
-
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "employees")
 public class Employee {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long employeeId;
 
-    @Column(name = "first_name")
-    private String firstName;
+    @Column(nullable = false)
+    private String empName;
 
-    @Column(name = "last_name")
-    private String lastName;
+    private String empLastName;
 
-    @Column(name = "email_id")
-    private String emailId;
+    private String phoneNumber;
 
-    public Employee() {
+    private String emailAddress;
 
+    @ManyToOne
+    @JoinColumn(name = "Departments_deptId", nullable = false)
+    private Department department;
+
+    @ManyToOne
+    @JoinColumn(name = "Roles_roleId", nullable = false)
+    private Roles roles;
+
+    @ManyToOne
+    @JoinColumn(name = "Schedules_scheduleId", nullable = false)
+    private Schedules schedule;
+
+    // Getters and Setters
+
+    public Long getEmployeeId() {
+        return employeeId;
     }
 
-    public Employee(String firstName, String lastName, String emailId) {
-        super();
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.emailId = emailId;
+    public void setEmployeeId(Long employeeId) {
+        this.employeeId = employeeId;
     }
-    public long getId() {
-        return id;
+
+    public String getEmpName() {
+        return empName;
     }
-    public void setId(long id) {
-        this.id = id;
+
+    public void setEmpName(String empName) {
+        this.empName = empName;
     }
-    public String getFirstName() {
-        return firstName;
+
+    public String getEmpLastName() {
+        return empLastName;
     }
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+
+    public void setEmpLastName(String empLastName) {
+        this.empLastName = empLastName;
     }
-    public String getLastName() {
-        return lastName;
+
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
-    public String getEmailId() {
-        return emailId;
+
+    public String getEmailAddress() {
+        return emailAddress;
     }
-    public void setEmailId(String emailId) {
-        this.emailId = emailId;
+
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public Roles getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Roles roles) {
+        this.roles = roles;
+    }
+
+    public Schedules getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(Schedules schedule) {
+        this.schedule = schedule;
     }
 }

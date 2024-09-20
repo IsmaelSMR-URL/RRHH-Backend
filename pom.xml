@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>url.ingsoftware.rrhh</groupId>
-	<artifactId>RRHH-Backend</artifactId>
+	<artifactId>HR-Backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>RRHH-Backend</name>
 	<description>Demo project for Spring Boot</description>
