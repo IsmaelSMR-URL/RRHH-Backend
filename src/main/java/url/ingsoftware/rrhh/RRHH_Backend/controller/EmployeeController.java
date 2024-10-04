@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import url.ingsoftware.rrhh.RRHH_Backend.exception.ResourceNotFoundException;
+        import url.ingsoftware.rrhh.RRHH_Backend.exception.ResourceNotFoundException;
 import url.ingsoftware.rrhh.RRHH_Backend.model.Employee;
 import url.ingsoftware.rrhh.RRHH_Backend.model.Department;
 import url.ingsoftware.rrhh.RRHH_Backend.model.Roles;
@@ -44,6 +44,28 @@ public class EmployeeController {
     // create employee rest api
     @PostMapping("/employees")
     public Employee createEmployee(@RequestBody Employee employee) {
+        if (employee.getDepartment() == null || employee.getDepartment().getDeptId() == null) {
+            throw new ResourceNotFoundException("Department not found for this employee");
+        }
+        if (employee.getSchedule() == null || employee.getSchedule().getScheduleId() == null) {
+            throw new ResourceNotFoundException("Schedule not found for this employee");
+        }
+        if (employee.getRoles() == null || employee.getRoles().getRoleId() == null) {
+            throw new ResourceNotFoundException("Roles not found for this employee");
+        }
+
+        Department department = departmentRepository.findById(employee.getDepartment().getDeptId())
+                .orElseThrow(() -> new ResourceNotFoundException("Department not found"));
+        employee.setDepartment(department);
+
+        Roles roles = rolesRepository.findById(employee.getRoles().getRoleId())
+                .orElseThrow(() -> new ResourceNotFoundException("Role not found"));
+        employee.setRoles(roles);
+
+        Schedules schedule = scheduleRepository.findById(employee.getSchedule().getScheduleId())
+                .orElseThrow(() -> new ResourceNotFoundException("Schedule not found"));
+        employee.setSchedule(schedule);
+
         return employeeRepository.save(employee);
     }
 
@@ -67,21 +89,21 @@ public class EmployeeController {
         employee.setEmailAddress(employeeDetails.getEmailAddress());
 
         // Update Department
-        if (employeeDetails.getDepartment() != null) {
+        if (employeeDetails.getDepartment() != null && employeeDetails.getDepartment().getDeptId() != null) {
             Department department = departmentRepository.findById(employeeDetails.getDepartment().getDeptId())
                     .orElseThrow(() -> new ResourceNotFoundException("Department not found"));
             employee.setDepartment(department);
         }
 
         // Update Role
-        if (employeeDetails.getRoles() != null) {
+        if (employeeDetails.getRoles() != null && employeeDetails.getRoles().getRoleId() != null) {
             Roles roles = rolesRepository.findById(employeeDetails.getRoles().getRoleId())
                     .orElseThrow(() -> new ResourceNotFoundException("Role not found"));
             employee.setRoles(roles);
         }
 
         // Update Schedule
-        if (employeeDetails.getSchedule() != null) {
+        if (employeeDetails.getSchedule() != null && employeeDetails.getSchedule().getScheduleId() != null) {
             Schedules schedule = scheduleRepository.findById(employeeDetails.getSchedule().getScheduleId())
                     .orElseThrow(() -> new ResourceNotFoundException("Schedule not found"));
             employee.setSchedule(schedule);

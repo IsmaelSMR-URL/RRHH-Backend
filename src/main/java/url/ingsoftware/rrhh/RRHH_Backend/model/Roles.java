@@ -11,7 +11,7 @@ public class Roles {
     private Long roleId;
 
     private String roleName;
-    private String roleDesc; // Add this field
+    private String roleDescription; // Add this field
 
     // Getters and Setters
     public Long getRoleId() {
@@ -30,11 +30,11 @@ public class Roles {
         this.roleName = roleName;
     }
 
-    public String getRoleDesc() { // Add this getter
-        return roleDesc;
+    public String getRoleDescription() { // Add this getter
+        return roleDescription;
     }
 
-    public void setRoleDesc(String roleDesc) { // Add this setter
-        this.roleDesc = roleDesc;
+    public void setRoleDescription(String roleDescription) { // Add this setter
+        this.roleDescription = roleDescription;
     }
 }

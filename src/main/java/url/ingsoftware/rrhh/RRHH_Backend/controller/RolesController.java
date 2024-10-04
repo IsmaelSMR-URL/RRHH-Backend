@@ -47,7 +47,7 @@ public class RolesController {
                 .orElseThrow(() -> new ResourceNotFoundException("Roles not exist with id :" + id));
 
         roles.setRoleName(roleDetails.getRoleName());
-        roles.setRoleDesc(roleDetails.getRoleDesc());
+        roles.setRoleDescription(roleDetails.getRoleDescription());
 
         Roles updatedRoles = rolesRepository.save(roles);
         return ResponseEntity.ok(updatedRoles);
