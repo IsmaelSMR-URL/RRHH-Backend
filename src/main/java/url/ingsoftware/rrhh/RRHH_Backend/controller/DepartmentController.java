@@ -17,12 +17,8 @@ import java.util.Map;
 @RequestMapping("/api/v1/")
 public class DepartmentController {
 
-    private final DepartmentRepository departmentRepository;
-
     @Autowired
-    public DepartmentController(DepartmentRepository departmentRepository) {
-        this.departmentRepository = departmentRepository;
-    }
+    private DepartmentRepository departmentRepository;
 
     // get all departments
     @GetMapping("/departments")
@@ -51,8 +47,7 @@ public class DepartmentController {
                 .orElseThrow(() -> new ResourceNotFoundException("Department not exist with id :" + id));
 
         department.setDeptName(departmentDetails.getDeptName());
-        // Ensure deptDescription exists in Department class or remove this line
-        // department.setDeptDescription(departmentDetails.getDeptDescription());
+        department.setDeptDescription(departmentDetails.getDeptDescription());
 
         Department updatedDepartment = departmentRepository.save(department);
         return ResponseEntity.ok(updatedDepartment);

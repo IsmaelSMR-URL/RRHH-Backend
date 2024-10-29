@@ -12,6 +12,8 @@ public class Department {
 
     private String deptName;
 
+    private String deptDescription;
+
     // Getters and Setters
     public Long getDeptId() {
         return deptId;
@@ -27,5 +29,13 @@ public class Department {
 
     public void setDeptName(String deptName) {
         this.deptName = deptName;
+    }
+
+    public String getDeptDescription() {
+        return deptDescription;
+    }
+
+    public void setDeptDescription(String deptDescription) {
+        this.deptDescription = deptDescription;
     }
 }
